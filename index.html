@@ -1,18 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en-US" class= ""dir="ltr">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/top-banner-css.css">
     <link rel="icon" href="images/favicon.ico" type="favicon">
     <title>SafetyNET</title>
   </head>
   <body>
+
+    <!-- divider for top header with links-->
+    <div id="top-header" class="top_wrapper">
+  		<div class="container clearfix">
+  				<div id="et-secondary-menu">
+  				 <ul class="et-social-icons">
+      	        <li class="et-social-icon et-social-facebook">
+      		        <a href="https://www.facebook.com/ColoradoSchoolofMines" class="icon">
+      			        <span>Facebook</span>
+      		        </a>
+      	         </li>
+      	         <li class="et-social-icon et-social-twitter">
+      		         <a href="https://twitter.com/coschoolofmines" class="icon">
+      			         <span>Twitter</span>
+      		         </a>
+      	         </li>
+    	           <li class="et-social-icon et-social-rss">
+  		             <a href="http://www.minesnewsroom.com/news/all/rss.xml" class="icon">
+		                 <span>RSS</span>
+  		             </a>
+    	           </li>
+                 <li class="et-social-icon"><a href="https://www.snapchat.com/add/coschoolofmines" class="icon socicon socicon-snapchat" alt="Snapchat" aria-label="Snapchat"><span>Snapchat</span></a></li><li class="et-social-icon et-social-linkedin"><a href="https://www.linkedin.com/edu/colorado-school-of-mines-17994" class="icon" alt="LinkedIn" aria-label="LinkedIn"><span>LinkedIn</span></a></li>&nbsp;<li class="et-social-icon et-social-youtube"><a href="https://www.youtube.com/user/ColoSchoolofMines" class="icon" alt="YouTube" aria-label="YouTube"><span>YouTube</span></a></li>&nbsp;<li class="et-social-icon et-social-instagram"><a href="https://www.instagram.com/coloradoschoolofmines" class="icon" alt="Instagram" aria-label="Instagram"><span>Instagram</span></a></li>&nbsp;<li class="et-social-icon et-social-flikr"><a href="http://flickr.com/photos/coloradoschoolofmines" class="icon" alt="Flickr" aria-label="Flickr"><span>Flickr</span></a></li>&nbsp;</ul><ul id="et-secondary-nav" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1514"><a href="http://www.minesnewsroom.com">News</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1515"><a href="http://calendar.mines.edu">Calendar</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1516"><a href="http://trailhead.mines.edu">Trailhead</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1517"><a href="/elearning/">Canvas</a></li>
+                 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1939"><a href="https://www.mines.edu/campus-email/">Email</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1518"><a href="http://library.mines.edu">Library</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1519"><a href="http://giving.mines.edu">Give</a></li>
+                 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1522"><a href="https://www.mines.edu/directories/">Directories</a></li>
+                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2199"><a href="#search">🔍</a></li>
+          </ul>
+        </div>
+			</div>
+		 </div>
+
     <!-- divider for colorado school of mines banner-->
-    <div class="Mines_Banner">
-      <img src="Images/MinesBanner.png" width="93" height="43" alt="Colorado School of Mines" id="logo">
-    </div>
+    <div id="top_image" class="logo_wrapper">
+			<span class="logo_helper"></span>
+			<a href="index.html">
+				<img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
+			</a>
+  	</div>
 
     <!-- divider for checklist-->
+    <div id="checklist-side" class="checklist_wrapper">
+      <div class = "checklist">
+        <ul class = "checkbox_structure">
+          <li class = "disaster_type">
+            <h1>Select Disaster Type:</h1>
+            <form class="disaster_check" action="/results/disasterType.php" method="get">
+              <input type="checkbox" name="Active-threat" value="Active-threat">
+              <label for="Active-threat"> Active Threat</label><br>
+
+              <input type="checkbox" name="Chemical-spill" value="Chemical-spill">
+              <label for="Chemical-spill"> Chemical Spill</label><br>
+
+              <input type="checkbox" name="Civil-disorder" value="Civil-disorder">
+              <label for="Civil-disorder"> Civil Disorder</label><br>
+
+              <input type="checkbox" name="Earthquake" value="Earthquake">
+              <label for="Earthquake"> Earthquake</label><br>
+
+              <input type="checkbox" name="Building-fire" value="Building-fire">
+              <label for="Building-fire"> Building Fire</label><br>
+
+              <input type="checkbox" name="Flood" value="Flood">
+              <label for="Flood"> Flood</label><br>
+
+              <input type="checkbox" name="Tornado" value="Tornado">
+              <label for="Tornado"> Tornado</label><br>
+
+              <input type="checkbox" name="Snow" value="Snow">
+              <label for="Snow"> Snow</label><br>
+
+              <input type="checkbox" name="Building-collapse" value="Building-collapse">
+              <label for="Building-collapse"> Building-collapse</label><br>
+            </form>
+          </li>
+
+          <li class = "apply_effects">
+            <h1>Select Additional Effects:</h1>
+            <form class="apply_check" action="/results/applyEffects.php" method="get">
+              <input type="checkbox" name="wind" value="wind">
+              <label for="wind"> Wind</label><br>
+
+              <input type="checkbox" name="buffer" value="buffer">
+              <label for="buffer"> Buffer Zone</label><br>
+
+              <input type="checkbox" name="all" value="all">
+              <label for="all"> Select All Buildings</label><br>
+            </form>
+          </li>
+
+          <li class = "add-instructions">
+            <h1>Add Instructions:</h1>
+            <form class="instructions_fill_in_the_blank" action="/results/instructionsFillInTheBlank.php" method="get">
+              <input type="text" name="instructions-text" value="Enter Text Here">
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <!-- divider for map-->
+    <div id="campus-map-main" class="map_wrapper">
+			<img src="Images/minesCampusMapScaled.jpg" alt="CSM_Map" id="map">
+    </div>
+
+
   </body>
 </html>

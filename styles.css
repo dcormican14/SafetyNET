@@ -1,0 +1,30 @@
+#top-header{
+  --swiper-theme-color: #007aff;
+  --swiper-navigation-size: 44px;
+  --jp-carousel-primary-color: #fff;
+  --jp-carousel-primary-subtle-color: #999;
+  --jp-carousel-bg-color: #000;
+  --jp-carousel-bg-faded-color: #222;
+  --jp-carousel-border-color: #3a3a3a;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Lato',Helvetica,Arial,Lucida,sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  -webkit-text-size-adjust: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  z-index: 100000;
+  color: #ffffff;
+  transition: background-color 0.4s, transform 0.4s, opacity 0.4s ease-in-out, -webkit-transform 0.4s;
+  line-height: 1em;
+  background-color: #d2492a;
+  font-size: 13px;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+}
