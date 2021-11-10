@@ -12,21 +12,22 @@
   <body>
     <!-- we are skipping the header with links as it is unncecessary and disctracting to the
     overall goal of the project, providing a clean and easy-to-use interface.-->
+
+    <!-- divider for colorado school of mines banner-->
+    <div id="top_image" class="logo_wrapper">
+      <span class="logo_helper"></span>
+      <a href="index.html">
+        <img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
+      </a>
+    </div>
     
-    <div id="page-container" style="padding-top: 82px; margin-top: -1px;">
-        <!-- divider for colorado school of mines banner-->
-        <div id="top_image" class="logo_wrapper" style="max-width=100%;">
-    			<span class="logo_helper"></span>
-    			<a href="index.html">
-    				<img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
-    			</a>
-      	</div>
+    <div id="page-container" class="page_wrapper">
 
         <!-- divider for checklist, one form returns all necessary values to results/checklistReturn.php-->
         <div id="checklist-side" class="checklist_wrapper">
           <div class = "checklist">
-              <h1>Select Disaster Type:</h1>
-                <form class="first_responder_form" action="/results/checklistReturn.php" method="get">
+              <form class="first_responder_form" action="/results/checklistReturn.php" method="get">
+                <h1>Select Disaster Type:</h1>
                   <input type="checkbox" name="Active-threat" value="Active-threat">
                   <label for="Active-threat"> Active Threat</label><br>
 
@@ -65,11 +66,9 @@
                   <label for="all"> Select All Buildings</label><br>
 
                 <h1>Add Instructions:</h1>
-                  <form class="instructions_fill_in_the_blank" action="/results/instructionsFillInTheBlank.php" method="get">
-                  <input type="text" name="instructions-text" value="Enter Text Here">
-                  <br>
-
-                  <input type="submit" value="Submit"
+                  <input type="text" name="instructions-text" placeholder="Enter Text Here"><br>
+                  <input type="submit" value="Submit">
+              </form>
           </div>
         </div>
 
