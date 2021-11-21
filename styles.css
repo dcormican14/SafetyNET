@@ -1,31 +1,39 @@
-.page_wrapper{
-  background-color: lightgray;
-  max-width: 100%;
-  border: 20px solid lightgray;
-  padding-bottom: 1600px;
+*{
+  margin: 0;
+  padding: 0;
 }
-h1, h2, h3, label, a, form{
-  font-size: 24px;
+.page_wrapper{
+  background-color: #000080;
+  width: 100%;
+  display: flex;
+  padding-top: 10.5%
+}
+h1, h2, h3, summary{
+  font-size: 18px;
+  color: white;
+  font-family: Arial;
+}
+
+label, a, form, p{
+  font-size: 16px;
   color: white;
   font-family: Arial;
 }
 
 .first_responder_form{
-  background-color: blue;
-  padding: 10px;
-  border: 6px solid white;
-  border-radius: 12px;
-  margin-top: 12%;
+  background-color: inherit;
   display: inline-block;
-  float: left;
-  max-width: 25%
+  max-width: 100%;
+  padding: 10px;
 }
 
 .logo_wrapper{
+  align: center;
   position:fixed;
   max-width: 100%;
   background-color: white;
   z-index: 1;
+  left:0;
   top: 0;
 }
 
@@ -36,9 +44,35 @@ h1, h2, h3, label, a, form{
 }
 
 .map_wrapper img{
-  margin-top: 12%;
-  position: relative;
   display: inline-block;
-  max-width:70%;
-  float: right;
+  max-width: 100%;
+  margin: auto;
+}
+
+.map_wrapper_product img{
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checklist_wrapper summary{
+  width:200px;
+}
+
+.footer_wrapper{
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+  background-color: #FFEA61;
+  display: flex;
+}
+
+.footer_wrapper img{
+  display: inline-block;
+  max-width: 12%;
+}
+
+.footer_wrapper p{
+  display: inline-block;
+  color: black;
 }

@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-US" class= ""dir="ltr">
+<html lang="en-US" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="/css/top-banner-css.css">
     <link rel="icon" href="images/favicon.ico" type="favicon">
     <title>SafetyNET</title>
   </head>
@@ -20,62 +17,97 @@
         <img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
       </a>
     </div>
-    
+
     <div id="page-container" class="page_wrapper">
 
         <!-- divider for checklist, one form returns all necessary values to results/checklistReturn.php-->
-        <div id="checklist-side" class="checklist_wrapper">
-          <div class = "checklist">
+      <div id="checklist-side" class="checklist_wrapper">
+        <div class = "checklist">
               <form class="first_responder_form" action="/results/checklistReturn.php" method="get">
-                <h1>Select Disaster Type:</h1>
-                  <input type="checkbox" name="Active-threat" value="Active-threat">
-                  <label for="Active-threat"> Active Threat</label><br>
+                <details>
+                  <summary>Disaster Type</summary>
+                  <div class = "disaster_type_content">
+                    <input type="checkbox" name="Active-threat" value="Active-threat">
+                    <label for="Active-threat"> Active Threat</label><br>
 
-                  <input type="checkbox" name="Chemical-spill" value="Chemical-spill">
-                  <label for="Chemical-spill"> Chemical Spill</label><br>
+                    <input type="checkbox" name="Chemical-spill" value="Chemical-spill">
+                    <label for="Chemical-spill"> Chemical Spill</label><br>
 
-                  <input type="checkbox" name="Civil-disorder" value="Civil-disorder">
-                  <label for="Civil-disorder"> Civil Disorder</label><br>
+                    <input type="checkbox" name="Civil-disorder" value="Civil-disorder">
+                    <label for="Civil-disorder"> Civil Disorder</label><br>
 
-                  <input type="checkbox" name="Earthquake" value="Earthquake">
-                  <label for="Earthquake"> Earthquake</label><br>
+                    <input type="checkbox" name="Earthquake" value="Earthquake">
+                    <label for="Earthquake"> Earthquake</label><br>
 
-                  <input type="checkbox" name="Building-fire" value="Building-fire">
-                  <label for="Building-fire"> Building Fire</label><br>
+                    <input type="checkbox" name="Building-fire" value="Building-fire">
+                    <label for="Building-fire"> Building Fire</label><br>
 
-                  <input type="checkbox" name="Flood" value="Flood">
-                  <label for="Flood"> Flood</label><br>
+                    <input type="checkbox" name="Flood" value="Flood">
+                    <label for="Flood"> Flood</label><br>
 
-                  <input type="checkbox" name="Tornado" value="Tornado">
-                  <label for="Tornado"> Tornado</label><br>
+                    <input type="checkbox" name="Tornado" value="Tornado">
+                    <label for="Tornado"> Tornado</label><br>
 
-                  <input type="checkbox" name="Snow" value="Snow">
-                  <label for="Snow"> Snow</label><br>
+                    <input type="checkbox" name="Snow" value="Snow">
+                    <label for="Snow"> Snow</label><br>
 
-                  <input type="checkbox" name="Building-collapse" value="Building-collapse">
-                  <label for="Building-collapse"> Building-collapse</label><br>
+                    <input type="checkbox" name="Building-collapse" value="Building-collapse">
+                    <label for="Building-collapse"> Building-collapse</label><br>
+                  </div>
+                </details>
 
-                <h1>Select Additional Effects:</h1>
-                  <input type="checkbox" name="wind" value="wind">
-                  <label for="wind"> Wind</label><br>
+                <details>
+                  <summary>Apply Effects</summary>
+                  <div class = "additional_effects_content">
+                    <input type="checkbox" name="wind" value="wind">
+                    <label for="wind"> Wind</label><br>
 
-                  <input type="checkbox" name="buffer" value="buffer">
-                  <label for="buffer"> Buffer Zone</label><br>
+                    <input type="checkbox" name="buffer" value="buffer">
+                    <label for="buffer"> Buffer Zone</label><br>
 
-                  <input type="checkbox" name="all" value="all">
-                  <label for="all"> Select All Buildings</label><br>
+                    <input type="checkbox" name="all" value="all">
+                    <label for="all"> Select All Buildings</label><br>
+                  </div>
+                </details>
 
-                <h1>Add Instructions:</h1>
-                  <input type="text" name="instructions-text" placeholder="Enter Text Here"><br>
-                  <input type="submit" value="Submit">
-              </form>
-          </div>
+
+
+                <details>
+                  <summary>Buildings</summary>
+                  {% for building in building_list %}
+                    <input type="checkbox" name="{% building.getName() %}">
+                    <label for= "{% building.getName() %}">{% building.getName() %}</label><br>
+                </details>
+
+                <details>
+                  <summary>Blocks</summary>
+                  {% for block in block_list %}
+                    <input type="checkbox" name="{% block.getName() %}">
+                    <label for= "{% block.getName() %}">{% block.getName() %}</label><br>
+                </details>
+
+                <details>
+                  <summary>Streets</summary>
+                  {% for street in street_list %}
+                    <input type="checkbox" name="{% street.getName() %}">
+                    <label for= "{% street.getName() %}">{% street.getName() %}</label><br>
+                </details>
+
+                <details>
+                  <summary>Additional Instructions</summary>
+                  <div class = "instructions_content">
+                    <input type="text" name="instructions-text" placeholder="Enter Text Here"><br>
+                  </div>
+                </details>
+                <input type="submit" value="Submit">
+            </form>
         </div>
+      </div>
 
-        <!-- divider for map-->
-        <div id="campus-map-main" class="map_wrapper">
-    			<img src="Images/minesCampusMapScaled.jpg" alt="CSM_Map" id="map">
-        </div>
+      <!-- divider for map-->
+      <div id="campus-map-main" class="map_wrapper">
+  			<img src="Images/minesCampusMapScaled.jpg" alt="CSM_Map" id="map">
+      </div>
     </div>
   </body>
 </html>
