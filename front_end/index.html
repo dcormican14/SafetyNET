@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" type="favicon">
+    <title>SafetyNET</title>
+  </head>
+  <body>
+    <!-- we are skipping the header with links as it is unncecessary and disctracting to the
+    overall goal of the project, providing a clean and easy-to-use interface.-->
+
+    <!-- divider for colorado school of mines banner-->
+    <div id="top_image" class="logo_wrapper">
+      <span class="logo_helper"></span>
+      <a href="index.html">
+        <img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
+      </a>
+    </div>
+
+    <div id="page-container" class="page_wrapper">
+
+        <!-- divider for checklist, one form returns all necessary values to results/checklistReturn.php-->
+      <div id="checklist-side" class="checklist_wrapper">
+        <div class = "checklist">
+              <form class="first_responder_form" action="/results/checklistReturn.php" method="get">
+                <details>
+                  <summary>Disaster Type</summary>
+                  <div class = "disaster_type_content">
+                    <input type="checkbox" name="Active-threat" value="Active-threat">
+                    <label for="Active-threat"> Active Threat</label><br>
+
+                    <input type="checkbox" name="Chemical-spill" value="Chemical-spill">
+                    <label for="Chemical-spill"> Chemical Spill</label><br>
+
+                    <input type="checkbox" name="Civil-disorder" value="Civil-disorder">
+                    <label for="Civil-disorder"> Civil Disorder</label><br>
+
+                    <input type="checkbox" name="Earthquake" value="Earthquake">
+                    <label for="Earthquake"> Earthquake</label><br>
+
+                    <input type="checkbox" name="Building-fire" value="Building-fire">
+                    <label for="Building-fire"> Building Fire</label><br>
+
+                    <input type="checkbox" name="Flood" value="Flood">
+                    <label for="Flood"> Flood</label><br>
+
+                    <input type="checkbox" name="Tornado" value="Tornado">
+                    <label for="Tornado"> Tornado</label><br>
+
+                    <input type="checkbox" name="Snow" value="Snow">
+                    <label for="Snow"> Snow</label><br>
+
+                    <input type="checkbox" name="Building-collapse" value="Building-collapse">
+                    <label for="Building-collapse"> Building-collapse</label><br>
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Apply Effects</summary>
+                  <div class = "additional_effects_content">
+                    <input type="checkbox" name="wind" value="wind">
+                    <label for="wind"> Wind</label><br>
+
+                    <input type="checkbox" name="buffer" value="buffer">
+                    <label for="buffer"> Buffer Zone</label><br>
+
+                    <input type="checkbox" name="all" value="all">
+                    <label for="all"> Select All Buildings</label><br>
+                  </div>
+                </details>
+
+
+
+                <details>
+                  <summary>Buildings</summary>
+                  <div class = "buildings_content">
+                    {% for building in building_list %}
+                      <input type="checkbox" name="{{ building.getName() }}">
+                      <label for= "{{ building.getName() }}">{% building.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Blocks</summary>
+                  <div class = "blocks_content">
+                    {% for block in block_list %}
+                      <input type="checkbox" name="{{ block.getName() }}">
+                      <label for= "{{ block.getName() }}">{% block.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Streets</summary>
+                  <div class = "street_content">
+                    {% for street in street_list %}
+                      <input type="checkbox" name="{{ street.getName() }}">
+                      <label for= "{{ street.getName() }}">{% street.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Additional Instructions</summary>
+                  <div class = "instructions_content">
+                    <input type="text" name="instructions-text" placeholder="Enter Text Here"><br>
+                  </div>
+                </details>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+      </div>
+
+      <!-- divider for map-->
+      <div id="campus-map-main" class="map_wrapper">
+  			<img src="Images/minesCampusMapScaled.jpg" alt="CSM_Map" id="map">
+      </div>
+    </div>
+  </body>
+</html>

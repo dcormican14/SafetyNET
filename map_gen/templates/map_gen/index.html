@@ -1,0 +1,29 @@
+<!-- style/css interoperability code --
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{ % static 'polls/style.css' %}"> -->
+
+
+<!-- "substance" code -->
+{% if list_of_urls %}
+
+    <!-- Remember that this is an incomplete HTML document for the tutorial.
+         Should always use complete HTML documents.
+         More on this at tutorial pg3 sec"Write views that actually do something" -->
+
+    <p>Two versions of the list of questions. One has hyperlinks and one doesn't.</p>
+    <ul>
+    {% for url in list_of_urls %}
+        <!-- v3 code, now adds the polls namespace to remove ambiguity -->
+        <li><a href="{% url 'map_gen' url %}">{{ question.question_text }}</a></li>
+
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for question in latest_question_list %}
+        <li>{{ question.question_text }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

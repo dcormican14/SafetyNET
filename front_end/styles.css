@@ -1,0 +1,97 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.page_wrapper{
+  background-color: #000080;
+  width: 100%;
+  display: flex;
+  padding-top: 10.5%
+}
+h1, h2, h3, summary{
+  font-size: 18px;
+  color: white;
+  font-family: Arial;
+}
+
+label, a, form, p{
+  font-size: 16px;
+  color: white;
+  font-family: Arial;
+}
+
+.first_responder_form{
+  background-color: inherit;
+  display: inline-block;
+  max-width: 100%;
+  padding: 10px;
+}
+
+.logo_wrapper{
+  align: center;
+  position:fixed;
+  max-width: 100%;
+  background-color: white;
+  z-index: 1;
+  left:0;
+  top: 0;
+}
+
+.logo_wrapper img{
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.map_wrapper img{
+  display: inline-block;
+  max-width: 100%;
+  margin: auto;
+}
+
+.checklist_wrapper summary{
+  width:200px;
+}
+
+.footer_wrapper{
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+  background-color: #FFEA61;
+  display: flex;
+}
+
+.footer_wrapper img{
+  display: inline-block;
+  max-width: 3%;
+}
+
+.footer_wrapper p{
+  display: inline-block;
+  color: black;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.disaster_type_content{
+  margin-left: 20px;
+}
+
+.additional_effects_content{
+  margin-left: 20px;
+}
+
+.buildings_content{
+  margin-left: 20px;
+}
+
+.blocks_content{
+  margin-left: 20px;
+}
+
+.street_content{
+  margin-left: 20px;
+}
+
+.instructions_content{
+  margin-left: 20px;
+}

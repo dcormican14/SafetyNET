@@ -1,0 +1,17 @@
+    <!-- Remember that this is an incomplete HTML document for the tutorial.
+         Should always use complete HTML documents.
+         More on this at tutorial pg3 sec"Write views that actually do something" -->
+
+<p>This is a test of boolean coord toggle arrays.</p>
+<p>Event: {{ event.event_name }} is a {{ event.event_type }} created by {{ event.creator_id }}.</p>
+<p>{{ event.event_name }}, map {{ map.id }} was created by {{ map.creator_id }} and says "{{ map.caption_text }}"</p>
+<p>It contains these map zones and toggle positions:</p>
+
+<ul>
+    {% for toggles in map.toggles_set.all %}
+        <!-- v3 code, now adds the polls namespace to remove ambiguity -->
+        <li>{{ toggles.dbNumber }} / {{ toggles.toggle }} / </li>
+    {% endfor %}
+</ul>
+
+
