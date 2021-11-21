@@ -74,23 +74,32 @@
 
                 <details>
                   <summary>Buildings</summary>
-                  {% for building in building_list %}
-                    <input type="checkbox" name="{% building.getName() %}">
-                    <label for= "{% building.getName() %}">{% building.getName() %}</label><br>
+                  <div class = "buildings_content">
+                    {% for building in building_list %}
+                      <input type="checkbox" name="{{ building.getName() }}">
+                      <label for= "{{ building.getName() }}">{% building.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
                 </details>
 
                 <details>
                   <summary>Blocks</summary>
-                  {% for block in block_list %}
-                    <input type="checkbox" name="{% block.getName() %}">
-                    <label for= "{% block.getName() %}">{% block.getName() %}</label><br>
+                  <div class = "blocks_content">
+                    {% for block in block_list %}
+                      <input type="checkbox" name="{{ block.getName() }}">
+                      <label for= "{{ block.getName() }}">{% block.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
                 </details>
 
                 <details>
                   <summary>Streets</summary>
-                  {% for street in street_list %}
-                    <input type="checkbox" name="{% street.getName() %}">
-                    <label for= "{% street.getName() %}">{% street.getName() %}</label><br>
+                  <div class = "street_content">
+                    {% for street in street_list %}
+                      <input type="checkbox" name="{{ street.getName() }}">
+                      <label for= "{{ street.getName() }}">{% street.getName() %}</label><br>
+                    {% endfor %}
+                  </div>
                 </details>
 
                 <details>
