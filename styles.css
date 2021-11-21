@@ -84,11 +84,19 @@ label, a, form, p{
   margin-left: 20px;
 }
 
-.blocks_content{
+.lots_content{
   margin-left: 20px;
 }
 
 .street_content{
+  margin-left: 20px;
+}
+
+.areas_content{
+  margin-left: 20px;
+}
+
+.parks_content{
   margin-left: 20px;
 }
 
