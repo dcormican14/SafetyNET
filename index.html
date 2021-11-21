@@ -76,8 +76,8 @@
                   <summary>Buildings</summary>
                   <div class = "buildings_content">
                     {% for building in building_list %}
-                      <input type="checkbox" name="{{ building.getName() }}">
-                      <label for= "{{ building.getName() }}">{% building.getName() %}</label><br>
+                      <input type="checkbox" name="{% building.getName() %}">
+                      <label for= "{% building.getName() %}">{% building.getName() %}</label><br>
                     {% endfor %}
                   </div>
                 </details>
@@ -86,8 +86,8 @@
                   <summary>Blocks</summary>
                   <div class = "lots_content">
                     {% for lot in lot_list %}
-                      <input type="checkbox" name="{{ lot.getName() }}">
-                      <label for= "{{ lot.getName() }}">{% lot.getName() %}</label><br>
+                      <input type="checkbox" name="{% lot.getName() %}">
+                      <label for= "{% lot.getName() %}">{% lot.getName() %}</label><br>
                     {% endfor %}
                   </div>
                 </details>
@@ -96,8 +96,8 @@
                   <summary>Streets</summary>
                   <div class = "street_content">
                     {% for street in street_list %}
-                      <input type="checkbox" name="{{ street.getName() }}">
-                      <label for= "{{ street.getName() }}">{% street.getName() %}</label><br>
+                      <input type="checkbox" name="{% street.getName() %}">
+                      <label for= "{% street.getName() %}">{% street.getName() %}</label><br>
                     {% endfor %}
                   </div>
                 </details>
@@ -106,8 +106,8 @@
                   <summary>Parks</summary>
                   <div class = "parks_content">
                     {% for park in park_list %}
-                      <input type="checkbox" name="{{ park.getName() }}">
-                      <label for= "{{ park.getName() }}">{% park.getName() %}</label><br>
+                      <input type="checkbox" name="{% park.getName() %}">
+                      <label for= "{% park.getName() %}">{% park.getName() %}</label><br>
                     {% endfor %}
                   </div>
                 </details>
@@ -116,8 +116,8 @@
                   <summary>Areas</summary>
                   <div class = "areas_content">
                     {% for area in area_list %}
-                      <input type="checkbox" name="{{ area.getName() }}">
-                      <label for= "{{ area.getName() }}">{% area.getName() %}</label><br>
+                      <input type="checkbox" name="{% area.getName() %}">
+                      <label for= "{% area.getName() %}">{% area.getName() %}</label><br>
                     {% endfor %}
                   </div>
                 </details>
