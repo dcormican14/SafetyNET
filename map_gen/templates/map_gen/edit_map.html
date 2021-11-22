@@ -2,16 +2,65 @@
          Should always use complete HTML documents.
          More on this at tutorial pg3 sec"Write views that actually do something" -->
 
+<h1>Callouts</h1>
+
 <p>This is a test of boolean coord toggle arrays.</p>
 <p>Event: {{ event.event_name }} is a {{ event.event_type }} created by {{ event.creator_id }}.</p>
-<p>{{ event.event_name }}, map {{ map.id }} was created by {{ map.creator_id }} and says "{{ map.caption_text }}"</p>
+<p>{{ event.event_name }}, map {{ mapversion.pk }} was created by {{ mapversion.creator_id }} and says
+    "{{ mapversion.caption_text }}"</p>
+
+<h1>Toggles</h1>
+
 <p>It contains these map zones and toggle positions:</p>
 
+{% for t in mapversion.toggles_set.all %}
+    <li>{{ t.dbNumber }} / {{ t.toggle }}</li>
+{% endfor %}
+
+{{ teststring }}
+
+<p>test that info is passing to html</p>
+
+<h1>Map</h1>
+
+{{ mapversion.image.url }}
+<p></p>
+{{ mapversion.pk }}
+<p>hi</p>
+<img src="{{ mapversion.image.url }}">
+
+
+
+<h1>Database</h1>
+Buildings:
+<!--<li>{ { l_buildings.0.Name }}</li>
+<li>{ { l_buildings.1.Name }}</li>
+<li>{ { data.Name.0 }}</li>
+<li>{ { l_buildings.0 }}</li>-->
+
+{ { buildings }}
+
+<h3>Works???</h3>
 <ul>
-    {% for toggles in map.toggles_set.all %}
-        <!-- v3 code, now adds the polls namespace to remove ambiguity -->
-        <li>{{ toggles.dbNumber }} / {{ toggles.toggle }} / </li>
+    {% for z in l_buildings.items %}
+{#        { % for k in z.1 %}#}
+            <li>{{ z.0 }} / {{ z.1 }} / {{ z.1.Name }}<p>{{ z }} / {{ z.items }}</p></li>
+{#        { % endfor %}#}
     {% endfor %}
 </ul>
 
 
+
+<h3>Works?</h3>
+<ul>
+    {% for k,v in data.Name.items %}
+        <li>{{ k }} / {{ v }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Works:</h3>
+<ul>
+    {% for k,v in names.items %}
+        <li>{{ k }} / {{ v }}</li>
+    {% endfor %}
+</ul>

@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from PIL import Image
+from django.urls import reverse
 
 # Create your models here.
 num_zones = 115
@@ -18,8 +20,14 @@ class Event(models.Model):
                + " ON " + str(self.time_created) \
                + " WITH ID " + str(self.id)
 
+    def to_str(self):
+        return str(self)
+
     def was_created_recently(self):
         return self.time_created >= timezone.now() - timezone.timedelta(days=10)
+
+    # def get_absolute_url(self):
+    #     return reverse("event-detail", kwargs={"id": self.id})
 
 
 class MapVersion(models.Model):
@@ -29,7 +37,17 @@ class MapVersion(models.Model):
     is_airborne = models.BooleanField('Indicates airborne chemical threat.', default=False)
     # shape_toggles = models.BinaryField(bytearray(15), max_length=15,)
     caption_text = models.CharField(max_length=1024)
+    # image = models.ImageField(default=Image.open("map_gen/minesCampusMapScaled.jpg").convert('RGB'))
+    image = models.ImageField(upload_to='mapversions', null=True, blank=True)
     parent_event = models.ForeignKey(Event, on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return "MAP VERSION: " + self.id + \
+               + " CREATED BY " + self.creator_id \
+               + " ON " + str(self.time_created) \
+               + " THREAT IS " + ("" if self.is_airborne else "NOT") + " AIRBORNE " \
+               + "AND IS PART OF INCIDENT " + self.parent_event.id + ". " + \
+               + self.caption_text
 
 
 class Toggles(models.Model):
