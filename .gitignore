@@ -1,0 +1,5 @@
+# program-generated images. Not useful on a new system.
+media
+# database should create itself on a new system. If not I'll re-include.
+db.sqlite3
+

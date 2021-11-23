@@ -138,6 +138,8 @@ def new_event_map(request, event_id):
     except Event.DoesNotExist:
         raise Http404("Event with id [" + event_id + "] not found.")
 
+    print(event.id)
+
     # create the map:
     mapversion = MapVersion.objects.create(
         creator_id=event.creator_id,
@@ -157,10 +159,10 @@ def new_event_map(request, event_id):
     img.save(fp=buffer, format='JPEG')
     imgfile = ContentFile(buffer.getvalue())
 
-    mapversion.image.save('savename', InMemoryUploadedFile(
+    mapversion.image.save(savename, InMemoryUploadedFile(
         imgfile,
         None,
-        'savename',
+        savename,
         'image/jpeg',
         imgfile.tell,
         None
@@ -209,7 +211,10 @@ def new_event_map(request, event_id):
 
     # return statement ------------------------------------------------
 
-    print(event.id)  # double checks the event_map page.
+    # print(event.id)  # double checks the event_map page.
+    # dest = "../edit_map/" + str(event.id)
+    # # raise Exception
+    # return HttpResponseRedirect(dest)
 
     return render(request, 'map_gen/edit_map.html', {
         'data': data,
@@ -224,12 +229,153 @@ def new_event_map(request, event_id):
         'l_areas': l_areas,
     })
 
+def edit_map(request, event_id, mapversion_id):
+    try:
+        event = Event.objects.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Event with id [" + event_id + "] not found.")
 
+    print(event.id)
 
-def edit_map(request):
-    return
+    try:
+        mapversion = MapVersion.objects.get(pk=mapversion_id)
+    except MapVersion.DoesNotExist:
+        raise Http404("MapVersion with id [" + mapversion_id + "] not found.")
 
+    zone_input = int(request.POST["zonechoice"])
 
+    tog = mapversion.toggles_set.get(dbNumber=zone_input)
+    tog.toggle = not tog.toggle
+    tog.save()
+
+    # Diagnostic print statement:
+    print("Event Number: " + str(event_id)
+          + ". Map Number: " + str(mapversion_id)
+          + ". Passed Zone: " + str(zone_input)
+          + ".\nToggles set to True: \n")
+    for t in mapversion.toggles_set.filter(toggle="True"):
+        print(str(t.dbNumber) + ": "
+              + db.db["Name"][t.dbNumber])
+
+    # IMAGE MANIPULATION AND SAVING -------------------------------------------
+    # img = Image.open('map_gen/minesCampusMapScaled.jpg').convert('RGB')
+    img = Image.open('map_gen/minesCampusMapScaled.jpg').convert('RGB')
+
+    for t in mapversion.toggles_set.filter(toggle=True):
+        x = db.db['Coordinates'][t.dbNumber]
+        d = ImageDraw.Draw(img, mode='RGBA')
+        d.polygon(x, fill=(255, 0, 0, 96))
+
+    savename = "map_" + str(mapversion.pk) + ".jpg"
+    buffer = BytesIO()
+    img.save(fp=buffer, format='JPEG')
+    imgfile = ContentFile(buffer.getvalue())
+
+    mapversion.image.save(savename, InMemoryUploadedFile(
+        imgfile,
+        None,
+        savename,
+        'image/jpeg',
+        imgfile.tell,
+        None
+    ))
+
+    # Might be more code than necessary ---------------------------------
+
+    l_buildings = {}
+    l_lots = {}
+    l_parks = {}
+    l_streets = {}
+    l_areas = {}
+
+    for k in db.db["Type"].keys():
+        if db.db["Type"][k] == 1:
+            l_buildings[k] = {"Name": db.db["Name"][k],
+                              "Coordinates": db.db["Coordinates"][k],
+                              "Type": db.db["Type"][k], }
+        elif db.db["Type"][k] == 2:
+            l_lots[k] = {"Name": db.db["Name"][k],
+                         "Coordinates": db.db["Coordinates"][k],
+                         "Type": db.db["Type"][k], }
+        elif db.db["Type"][k] == 3:
+            l_parks[k] = {"Name": db.db["Name"][k],
+                          "Coordinates": db.db["Coordinates"][k],
+                          "Type": db.db["Type"][k], }
+        elif db.db["Type"][k] == 4:
+            l_streets[k] = {"Name": db.db["Name"][k],
+                            "Coordinates": db.db["Coordinates"][k],
+                            "Type": db.db["Type"][k], }
+        else:
+            l_areas[k] = {"Name": db.db["Name"][k],
+                          "Coordinates": db.db["Coordinates"][k],
+                          "Type": db.db["Type"][k], }
+
+    # THIS WORKED------------------------------------------------------
+    with open("map_gen/db.py", 'r') as f:
+        dbstring = f.read()
+    data = eval(dbstring[5:])
+
+    names = [(k, v) for k, v in data["Name"].items()]
+    names = data["Name"]
+
+    # return statement ------------------------------------------------
+
+    # print(event.id)  # double checks the event_map page.
+    # dest = "../edit_map/" + str(event.id)
+    # # raise Exception
+    # return HttpResponseRedirect(dest)
+
+    return render(request, 'map_gen/edit_map.html', {
+        'data': data,
+        'event': event,
+        'image': img,
+        'mapversion': mapversion,
+        'names': names,
+        'l_buildings': l_buildings,
+        'l_lots': l_lots,
+        'l_parks': l_parks,
+        'l_streets': l_streets,
+        'l_areas': l_areas,
+    })
+
+# def publish_map(request, event_id, mapversion_id):
+def publish_map(request, mapversion_id):
+    # try:
+    #     event = Event.objects.get(pk=event_id)
+    # except Event.DoesNotExist:
+    #     raise Http404("Event with id [" + event_id + "] not found.")
+    try:
+        mapversion = MapVersion.objects.get(pk=mapversion_id)
+    except MapVersion.DoesNotExist:
+        raise Http404("MapVersion with id [" + mapversion_id + "] not found.")
+
+    # IMAGE MANIPULATION AND SAVING -------------------------------------------
+    # img = Image.open('map_gen/minesCampusMapScaled.jpg').convert('RGB')
+    img = Image.open('map_gen/minesCampusMapScaled.jpg').convert('RGB')
+
+    for t in mapversion.toggles_set.filter(toggle=True):
+        x = db.db['Coordinates'][t.dbNumber]
+        d = ImageDraw.Draw(img, mode='RGBA')
+        d.polygon(x, fill=(255, 0, 0, 96))
+
+    savename = "map_" + str(mapversion.pk) + ".jpg"
+    buffer = BytesIO()
+    img.save(fp=buffer, format='JPEG')
+    imgfile = ContentFile(buffer.getvalue())
+
+    mapversion.image.save(savename, InMemoryUploadedFile(
+        imgfile,
+        None,
+        savename,
+        'image/jpeg',
+        imgfile.tell,
+        None
+    ))
+
+    return render(request, 'map_gen/publish_map.html', {
+        'image': img,
+        'mapversion': mapversion,
+    })
 
 
 
@@ -373,7 +519,7 @@ def edit_map_dev(request):
     # print(akeys)
     # print(buildings)
 
-    return render (request, 'map_gen/edit_map.html', {
+    return render (request, 'map_gen/edit_map_dev.html', {
         'data': data,
         'event': event1,
         'teststring': teststring,
@@ -424,3 +570,5 @@ def edit_map_dev(request):
     #                                                  'akeys' : akeys,})
 
 
+def dylan_map(request):
+    return render(None, 'map_gen/dylan_map.html')

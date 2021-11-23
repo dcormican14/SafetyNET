@@ -1,6 +1,12 @@
+
+
+
+
+<!--            DO SOMETHING WITH THIS IF TIME               -->
+
 <form action="{% url 'map_gen:edit_map' event.id %}" method="get">
 {% csrf_token %}
-
+    <fieldset>
         <legend><h2>Please double-check this information before proceeding:</h2></legend>
 
 
@@ -9,28 +15,7 @@
 
 
 
-        <label for="username">SSO Username</label>
-        <input type="text" id="creator_id_input" name="creator_id_input"><br><br>
-        <label for="eventname">Name of event or incident:</label>
-        <input type="text" id="event_name_input" name="event_name_input"><br><br>
-        <label for="eventtype">Type of event:</label>
-        <input type="text" id="type_input" name="type_input"><br><br>
 
-<input type="submit" value="new_event_confirmation">
-</form>
-
-
-
-
-    <fieldset>
-        <legend><h2>Create a mappable incident or event:</h2></legend>
-           < {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        <label for="username">SSO Username</label>
-        <input type="text" id="creator_id_input" name="creator_id_input"><br><br>
-        <label for="eventname">Name of event or incident:</label>
-        <input type="text" id="event_name_input" name="event_name_input"><br><br>
-        <label for="eventtype">Type of event:</label>
-        <input type="text" id="type_input" name="type_input"><br><br>>
     </fieldset>
 <form action="{% url 'map_gen:new_event_confirmation' %}" method="post">
 
