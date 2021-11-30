@@ -8,9 +8,9 @@
 
     <p>Welcome to the SafetyNET lobby.</p>
     <ul>
-    {% for url in list_of_urls %}
+    {% for u in list_of_urls %}
         <!-- v3 code, now adds the polls namespace to remove ambiguity -->
-        <li><a href="{% url url %}">map_gen/{{ url }}</a></li>
+        <li><a href="{% url u %}">map_gen/{{ u }}</a></li>
 
     {% endfor %}
     </ul>

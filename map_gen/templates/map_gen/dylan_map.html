@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'map_gen/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'map_gen/styles.css' %}">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="images/favicon.ico" type="favicon">
+    <link rel="icon" href="{% static 'map_gen/favicon.ico' %}" type="favicon">
     <title>SafetyNET</title>
   </head>
   <body>
     <div id="top_image" class="logo_wrapper">
       <span class="logo_helper"></span>
       <a href="dylan_map.html">
-        <img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
+        <img src="{%  static 'map_gen/MinesBanner.png' %}" alt="CSM_Banner" id="logo">
       </a>
     </div>
 
     <div id="page-container" class="page_wrapper">
       <div id="campus-map-main" class="map_wrapper">
-  		    <img src="Images/minesCampusMapScaled.jpg" alt="CSM_Map" id="map">
+  		    <img src="{{ mapversion.image }}" alt="CSM_Map" id="map">
       </div>
     </div>
 
     <div id="footer" class="footer_wrapper">
-      <img src="Images/alert.png" alt="Alert" id="Alert">
-      <!--<p>{ { return free response from form }}</p>-->
+      <img src="{% static 'map_gen/alert.png' %}" alt="Alert" id="Alert">
+     <p>{{ mapversion.caption_text }}</p>
     </div>
 
   </body>

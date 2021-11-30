@@ -14,7 +14,8 @@ urlpatterns = [
     path('edit_map/<int:event_id>/<int:mapversion_id>', views.edit_map, name='edit_map'),
 
     # Experimental
-    path('dylan_map/', views.dylan_map, name='dylan_map'),
+    path('view_map/<int:mapversion_id>', views.view_map, name='view_map'),
+    path('dylan_template/', views.dylan_template, name='dylan_template'),
     # path('publish_map/<int:event_id>/<int:mapversion_id>', views.publish_map, name='publish_map'),
     path('publish_map/<int:mapversion_id>', views.publish_map, name='publish_map'),
     path('edit_map_dev/', views.edit_map_dev, name='edit_map_dev'),

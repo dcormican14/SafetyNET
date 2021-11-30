@@ -16,6 +16,8 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.base import ContentFile
 
+# Utility
+
 # Create your views here.
 
 
@@ -217,41 +219,54 @@ def new_event_map(request, event_id):
     # return HttpResponseRedirect(dest)
 
     return render(request, 'map_gen/edit_map.html', {
-        'data': data,
+        #'data': data,
         'event': event,
-        'image': img,
+        #'image': img,
         'mapversion': mapversion,
-        'names': names,
-        'l_buildings': l_buildings,
-        'l_lots': l_lots,
-        'l_parks': l_parks,
-        'l_streets': l_streets,
-        'l_areas': l_areas,
+        #'names': names,
+        'building_list': l_buildings,
+        'lots_list': l_lots,
+        'parks_list': l_parks,
+        'streets_list': l_streets,
+        'areas_list': l_areas,
     })
 
 def edit_map(request, event_id, mapversion_id):
+
+    # Check input ids
     try:
         event = Event.objects.get(pk=event_id)
     except Event.DoesNotExist:
         raise Http404("Event with id [" + event_id + "] not found.")
-
-    print(event.id)
-
     try:
         mapversion = MapVersion.objects.get(pk=mapversion_id)
     except MapVersion.DoesNotExist:
         raise Http404("MapVersion with id [" + mapversion_id + "] not found.")
 
-    zone_input = int(request.POST["zonechoice"])
+    input = request.POST
 
-    tog = mapversion.toggles_set.get(dbNumber=zone_input)
-    tog.toggle = not tog.toggle
-    tog.save()
+    if "instructions-toggle" in input:
+        print('Toggle successful!')
+        message = input['instructions-text']
+        print('Message: ' + message)
+        mapversion.caption_text=message
+        mapversion.save()
+
+    print('Keys:')
+    for k in input.keys():
+        print(k)
+        try:
+            zone_input = int(k)
+        except ValueError:
+            continue
+
+        tog = mapversion.toggles_set.get(dbNumber=zone_input)
+        tog.toggle = True
+        tog.save()
 
     # Diagnostic print statement:
     print("Event Number: " + str(event_id)
           + ". Map Number: " + str(mapversion_id)
-          + ". Passed Zone: " + str(zone_input)
           + ".\nToggles set to True: \n")
     for t in mapversion.toggles_set.filter(toggle="True"):
         print(str(t.dbNumber) + ": "
@@ -265,6 +280,16 @@ def edit_map(request, event_id, mapversion_id):
         x = db.db['Coordinates'][t.dbNumber]
         d = ImageDraw.Draw(img, mode='RGBA')
         d.polygon(x, fill=(255, 0, 0, 96))
+
+
+    if "buffer" in input:
+        pass
+        ########## buffer here ##########
+        # these will need a field in the map model
+
+    if "wind" not in input:
+        pass
+        ####### wind stuff here ########
 
     savename = "map_" + str(mapversion.pk) + ".jpg"
     buffer = BytesIO()
@@ -326,16 +351,16 @@ def edit_map(request, event_id, mapversion_id):
     # return HttpResponseRedirect(dest)
 
     return render(request, 'map_gen/edit_map.html', {
-        'data': data,
+        #'data': data,
         'event': event,
-        'image': img,
+        #'image': img,
         'mapversion': mapversion,
-        'names': names,
-        'l_buildings': l_buildings,
-        'l_lots': l_lots,
-        'l_parks': l_parks,
-        'l_streets': l_streets,
-        'l_areas': l_areas,
+        #'names': names,
+        'building_list': l_buildings,
+        'lots_list': l_lots,
+        'parks_list': l_parks,
+        'streets_list': l_streets,
+        'areas_list': l_areas,
     })
 
 # def publish_map(request, event_id, mapversion_id):
@@ -519,7 +544,7 @@ def edit_map_dev(request):
     # print(akeys)
     # print(buildings)
 
-    return render (request, 'map_gen/edit_map_dev.html', {
+    return render (request, 'dev/dev_edit_map.html', {
         'data': data,
         'event': event1,
         'teststring': teststring,
@@ -556,7 +581,7 @@ def edit_map_dev(request):
     # print(tog)
     print(db.db)
     """
-    # return render(request, 'map_gen/edit_map.html', {'image': img,
+    # return render(request, 'map_gen/dev_edit_map.html', {'image': img,
     #                                                  'c_map': c_map,
     #                                                  'l_buildings': buildings,
     #                                                  'l_lots': lots,
@@ -570,5 +595,106 @@ def edit_map_dev(request):
     #                                                  'akeys' : akeys,})
 
 
-def dylan_map(request):
-    return render(None, 'map_gen/dylan_map.html')
+def view_map(requestmapversion_id, mapversion_id):
+    return render(None, 'map_gen/dylan_map.html', {'mapversion': mapversion_id})
+
+def dylan_template(request):
+    return render(None, 'map_gen/dylan_map_edit_template.html')
+
+#
+# def exp_new_event_map(request, event_id):
+#     try:
+#         event = Event.objects.get(pk=event_id)
+#     except Event.DoesNotExist:
+#         raise Http404("Event with id [" + event_id + "] not found.")
+#
+#     print(event.id)
+#
+#     # create the map:
+#     mapversion = MapVersion.objects.create(
+#         creator_id=event.creator_id,
+#         caption_text="",
+#         parent_event=event,
+#     )
+#
+#     # IMAGE MANIPULATION AND SAVING -------------------------------------------
+#     img = Image.open('map_gen/minesCampusMapScaled.jpg').convert('RGB')
+#
+#     # x = [(1301, 1297), (1301, 1194), (1361, 1193), (1361, 1297)]
+#     # d = ImageDraw.Draw(img, mode='RGBA')
+#     # d.polygon(x, fill=(255, 0, 0, 64))
+#
+#     savename = "map_" + str(mapversion.pk) + ".jpg"
+#     buffer = BytesIO()
+#     img.save(fp=buffer, format='JPEG')
+#     imgfile = ContentFile(buffer.getvalue())
+#
+#     mapversion.image.save(savename, InMemoryUploadedFile(
+#         imgfile,
+#         None,
+#         savename,
+#         'image/jpeg',
+#         imgfile.tell,
+#         None
+#     ))
+#
+#     for x in range(map_gen.models.num_zones):
+#         Toggles.objects.create(dbNumber=x, parent_map=mapversion)
+#
+#     # Might be more code than necessary ---------------------------------
+#
+#     l_buildings = {}
+#     l_lots = {}
+#     l_parks = {}
+#     l_streets = {}
+#     l_areas = {}
+#
+#     for k in db.db["Type"].keys():
+#         if db.db["Type"][k] == 1:
+#             l_buildings[k] = {"Name": db.db["Name"][k],
+#                             "Coordinates": db.db["Coordinates"][k],
+#                             "Type": db.db["Type"][k], }
+#         elif db.db["Type"][k] == 2:
+#             l_lots[k] = {"Name": db.db["Name"][k],
+#                        "Coordinates": db.db["Coordinates"][k],
+#                        "Type": db.db["Type"][k], }
+#         elif db.db["Type"][k] == 3:
+#             l_parks[k] = {"Name": db.db["Name"][k],
+#                         "Coordinates": db.db["Coordinates"][k],
+#                         "Type": db.db["Type"][k], }
+#         elif db.db["Type"][k] == 4:
+#             l_streets[k] = {"Name": db.db["Name"][k],
+#                           "Coordinates": db.db["Coordinates"][k],
+#                           "Type": db.db["Type"][k], }
+#         else:
+#             l_areas[k] = {"Name": db.db["Name"][k],
+#                         "Coordinates": db.db["Coordinates"][k],
+#                         "Type": db.db["Type"][k], }
+#
+#     # THIS WORKED------------------------------------------------------
+#     with open("map_gen/db.py", 'r') as f:
+#         dbstring = f.read()
+#     data = eval(dbstring[5:])
+#
+#     names = [(k, v) for k, v in data["Name"].items()]
+#     names = data["Name"]
+#
+#     # return statement ------------------------------------------------
+#
+#     # print(event.id)  # double checks the event_map page.
+#     # dest = "../edit_map/" + str(event.id)
+#     # # raise Exception
+#     # return HttpResponseRedirect(dest)
+#
+#     return render(request, 'dev/dev_edit_map.html', {
+#         'data': data,
+#         'event': event,
+#         'image': img,
+#         'mapversion': mapversion,
+#         'names': names,
+#         'building_list': l_buildings,
+#         'l_lots': l_lots,
+#         'l_parks': l_parks,
+#         'l_streets': l_streets,
+#         'l_areas': l_areas,
+#     })

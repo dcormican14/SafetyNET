@@ -1,0 +1,85 @@
+    <!-- Remember that this is an incomplete HTML document for the tutorial.
+         Should always use complete HTML documents.
+         More on this at tutorial pg3 sec"Write views that actually do something" -->
+
+<h1>Callouts</h1>
+<p>Event: {{ event.event_name }} is a {{ event.event_type }} created by user {{ event.creator_id }}.</p>
+<p>Event Number: {{ event.id }}. Map Version: {{ mapversion.pk }}. Created by {{ mapversion.creator_id }} with message:
+    "{{ mapversion.caption_text }}"</p>
+
+
+<h1>Map</h1>
+
+<form action="{% url 'map_gen:edit_map' event.id mapversion.id%}" method="post">
+    {% csrf_token %}
+    <legend><h3>Enter the zone you wish to highlight.</h3></legend>
+    <label for="zone">Input a number from 0-144 inclusive.</label>
+    <input type="number" id="zonechoice" name="zonechoicexxx"><br><br>
+    <input type="submit" value="Confirm zone choice">
+</form>
+
+<img src="{{ mapversion.image.url }}">
+
+<form action="{% url 'map_gen:publish_map' mapversion.id %}" method="get">
+    <legend><h3>Are you ready to publish this?</h3></legend>
+    <input type="submit" value="Publish">
+</form>
+
+
+
+
+
+
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<h1>Display values for debugging and code examples. Keep all pretty code above this line.</h1>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------>
+
+<h2>Database</h2>
+Buildings:
+<!---   Examples:   -->
+<!--<li>{ { l_buildings.0.Name }}</li>
+<li>{ { l_buildings.1.Name }}</li>
+<li>{ { data.Name.0 }}</li>
+<li>{ { l_buildings.0 }}</li>-->
+
+<h3>Works???</h3>
+<ul>
+    {% for z in l_buildings.items %}
+{#        { % for k in z.1 %}#}
+            <li>{{ z.0 }} / {{ z.1 }} / {{ z.1.Name }}<p>{{ z }} / {{ z.items }}</p></li>
+{#        { % endfor %}#}
+    {% endfor %}
+</ul>
+
+<h3>Works?</h3>
+<ul>
+    {% for k,v in data.Name.items %}
+        <li>{{ k }} / {{ v }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Works:</h3>
+<ul>
+    {% for k,v in names.items %}
+        <li>{{ k }} / {{ v }}</li>
+    {% endfor %}
+</ul>
+
+
+
+
+<h2>Check Toggles Here</h2>
+
+<p>It contains these map zones and toggle positions:</p>
+
+{% for t in mapversion.toggles_set.all %}
+    <li>{{ t.dbNumber }} / {{ t.toggle }}</li>
+{% endfor %}

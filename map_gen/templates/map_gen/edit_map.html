@@ -1,85 +1,181 @@
-    <!-- Remember that this is an incomplete HTML document for the tutorial.
-         Should always use complete HTML documents.
-         More on this at tutorial pg3 sec"Write views that actually do something" -->
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+{% load static %}
 
-<h1>Callouts</h1>
-<p>Event: {{ event.event_name }} is a {{ event.event_type }} created by user {{ event.creator_id }}.</p>
-<p>Event Number: {{ event.id }}. Map Version: {{ mapversion.pk }}. Created by {{ mapversion.creator_id }} with message:
-    "{{ mapversion.caption_text }}"</p>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'map_gen/styles.css' %}">
+    <link rel="icon" href="{% static 'map_gen/favicon.ico' %}" type="favicon">
+    <title>SafetyNET</title>
+  </head>
+  <body>
+
+    <!-- we are skipping the header with links as it is unncecessary and disctracting to the
+    overall goal of the project, providing a clean and easy-to-use interface.-->
+
+    <!-- divider for colorado school of mines banner-->
+    <div id="top_image" class="logo_wrapper">
+      <span class="logo_helper"></span>
+      <a href="index.html">
+        <img src="{% static 'map_gen/MinesBanner.png' %}" alt="CSM_Banner" id="logo">
+      </a>
+    </div>
+
+    <div id="page-container" class="page_wrapper">
+
+        <!-- divider for checklist, one form returns all necessary values to results/checklistReturn.php-->
+      <div id="checklist-side" class="checklist_wrapper">
+        <div class = "checklist">
+              <form class="first_responder_form" action="{% url 'map_gen:edit_map' event.id mapversion.id%}" method="post">
+              {% csrf_token %}
+
+{#                <details>#}
+{#                  <summary>Disaster Type</summary>#}
+{#                  <div class = "disaster_type_content">#}
+{#                    <input type="checkbox" name="Active-threat" value="Active-threat">#}
+{#                    <label for="Active-threat"> Active Threat</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Chemical-spill" value="Chemical-spill">#}
+{#                    <label for="Chemical-spill"> Chemical Spill</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Civil-disorder" value="Civil-disorder">#}
+{#                    <label for="Civil-disorder"> Civil Disorder</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Earthquake" value="Earthquake">#}
+{#                    <label for="Earthquake"> Earthquake</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Building-fire" value="Building-fire">#}
+{#                    <label for="Building-fire"> Building Fire</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Flood" value="Flood">#}
+{#                    <label for="Flood"> Flood</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Tornado" value="Tornado">#}
+{#                    <label for="Tornado"> Tornado</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Snow" value="Snow">#}
+{#                    <label for="Snow"> Snow</label><br>#}
+{##}
+{#                    <input type="checkbox" name="Building-collapse" value="Building-collapse">#}
+{#                    <label for="Building-collapse"> Building-collapse</label><br>#}
+{#                  </div>#}
+{#                </details>#}
+
+                <details>
+                  <summary>Buildings</summary>
+                  <div class = "buildings_content">
+                    {% for k in building_list.items %}
+                      <input type="checkbox" id="{{ k.1.name }}" name="{{ k.0 }}">
+                      <label for= "{{ k.1.name }}">{{ k.1.Name }}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Parking Lots</summary>
+                  <div class = "blocks_content">
+                    {% for k in lots_list.items %}
+                      <input type="checkbox" id="{{ k.1.name }}" name="{{ k.0 }}">
+                      <label for= "{{ k.1.name }}">{{ k.1.Name }}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Parks and Spaces</summary>
+                  <div class = "street_content">
+                    {% for k in parks_list.items %}
+                      <input type="checkbox" id="{{ k.1.name }}" name="{{ k.0 }}">
+                      <label for= "{{ k.1.name }}">{{ k.1.Name }}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Streets</summary>
+                  <div class = "street_content">
+                    {% for k in streets_list.items %}
+                      <input type="checkbox" id="{{ k.1.name }}" name="{{ k.0 }}">
+                      <label for= "{{ k.1.name }}">{{ k.1.Name }}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <details>
+                  <summary>Areas</summary>
+                  <div class = "street_content">
+                    {% for k in areas_list.items %}
+                      <input type="checkbox" id="{{ k.1.name }}" name="{{ k.0 }}">
+                      <label for= "{{ k.1.name }}">{{ k.1.Name }}</label><br>
+                    {% endfor %}
+                  </div>
+                </details>
+
+                <br>
+
+{#                <details>#}
+{#                  <summary>Apply Effects</summary>#}
+{#                  <div class = "additional_effects_content">#}
+{#                    <input type="checkbox" name="wind" id="wind">#}
+{#                    <label for="wind"> Wind</label><br>#}
+{##}
+{#                    <input type="checkbox" name="buffer" id="buffer">#}
+{#                    <label for="buffer"> Buffer Zone</label><br>#}
+{##}
+{#                    <input type="checkbox" name="all" id="all">#}
+{#                    <label for="all"> Select All Buildings</label><br>#}
+{#                  </div>#}
+{#                </details>#}
+{##}
+{#                <br>#}
+
+                <details>
+                  <summary>Additional Instructions</summary>
+                  <div class = "instructions_content">
+                    <input type="checkbox" name="instructions-toggle" name="instructions-toggle">
+                    <label for="instructions-toggle"> Check this box to ensure written message is saved.</label><br>
+                    <input type="text" name="instructions-text" placeholder="Enter Text Here"><br>
+                  </div>
+                </details>
+              <br><br><br>
+                <input type="submit" value="Submit inputs and refresh map">
 
 
-<h1>Map</h1>
+              <br><br>
 
-<form action="{% url 'map_gen:edit_map' event.id mapversion.id%}" method="post">
-    {% csrf_token %}
-    <legend><h3>Enter the zone you wish to highlight.</h3></legend>
-    <label for="zone">Input a number from 0-144 inclusive.</label>
-    <input type="number" id="zonechoice" name="zonechoice"><br><br>
-    <input type="submit" value="Confirm zone choice">
-</form>
-
-<img src="{{ mapversion.image.url }}">
-
-<form action="{% url 'map_gen:publish_map' mapversion.id %}" method="get">
-    <legend><h3>Are you ready to publish this?</h3></legend>
-    <input type="submit" value="Publish">
-</form>
+              <a href="{% url 'map_gen:publish_map' mapversion.id %}">Publish Map</a>
 
 
+            </form>
+        </div>
+      </div>
 
+      <!-- divider for map-->
+      <div id="campus-map-main" class="map_wrapper">
+  			<img src="{{ mapversion.image.url }}" alt="CSM_Map" id="map">
 
+{#        <h1>Callouts</h1>#}
+{#        <p>Event: {{ event.event_name }} is a {{ event.event_type }} created by user {{ event.creator_id }}.</p>#}
+{#        <p>Event Number: {{ event.id }}. Map Version: {{ mapversion.pk }}. Created by {{ mapversion.creator_id }} with message:#}
+{#        "{{ mapversion.caption_text }}"</p>#}
+{##}
+{#        <ul>#}
+{#            {% for z in building_list.items %}#}
+        {#        { % for k in z.1 %}#}
+{#                    <li>{{ z.0 }} / {{ z.1 }} / {{ z.1.Name }}<p>{{ z }} / {{ z.items }}</p></li>#}
+        {#        { % endfor %}#}
+{#            {% endfor %}#}
+        </ul>
+      </div>
+    </div>
+  </body>
 
+<footer>
+    <div id="footer" class="editor_footer_wrapper">
 
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<h1>Display values for debugging and code examples. Keep all pretty code above this line.</h1>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-<!------------------------------------------------------------------------------------>
-
-<h2>Database</h2>
-Buildings:
-<!---   Examples:   -->
-<!--<li>{ { l_buildings.0.Name }}</li>
-<li>{ { l_buildings.1.Name }}</li>
-<li>{ { data.Name.0 }}</li>
-<li>{ { l_buildings.0 }}</li>-->
-
-<h3>Works???</h3>
-<ul>
-    {% for z in l_buildings.items %}
-{#        { % for k in z.1 %}#}
-            <li>{{ z.0 }} / {{ z.1 }} / {{ z.1.Name }}<p>{{ z }} / {{ z.items }}</p></li>
-{#        { % endfor %}#}
-    {% endfor %}
-</ul>
-
-<h3>Works?</h3>
-<ul>
-    {% for k,v in data.Name.items %}
-        <li>{{ k }} / {{ v }}</li>
-    {% endfor %}
-</ul>
-
-<h3>Works:</h3>
-<ul>
-    {% for k,v in names.items %}
-        <li>{{ k }} / {{ v }}</li>
-    {% endfor %}
-</ul>
+    </div>
+</footer>
 
 
 
-
-<h2>Check Toggles Here</h2>
-
-<p>It contains these map zones and toggle positions:</p>
-
-{% for t in mapversion.toggles_set.all %}
-    <li>{{ t.dbNumber }} / {{ t.toggle }}</li>
-{% endfor %}
+</html>

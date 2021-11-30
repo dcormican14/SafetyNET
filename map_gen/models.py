@@ -35,9 +35,7 @@ class MapVersion(models.Model):
     time_created = models.DateTimeField('Date and time of new version creation', auto_now_add=True)
     buffer_radius = models.IntegerField('Size in pixels of safety buffer zone', default=0)
     is_airborne = models.BooleanField('Indicates airborne chemical threat.', default=False)
-    # shape_toggles = models.BinaryField(bytearray(15), max_length=15,)
     caption_text = models.CharField(max_length=1024)
-    # image = models.ImageField(default=Image.open("map_gen/minesCampusMapScaled.jpg").convert('RGB'))
     image = models.ImageField(upload_to='mapversions', null=True, blank=True)
     parent_event = models.ForeignKey(Event, on_delete=models.CASCADE, default=1)
 
