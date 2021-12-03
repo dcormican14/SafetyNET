@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="login_styles.css">
+    <link rel="icon" href="images/favicon.ico" type="favicon">
+    <title>SafetyNET</title>
+  </head>
+  <body>
+    <div id="top_image" class="logo_wrapper">
+      <span class="logo_helper"></span>
+      <a href="new_event.html">
+        <img src="Images/MinesBanner.png" alt="CSM_Banner" id="logo">
+      </a>
+    </div>
+    <div class="page_wrapper">
+      <div class="filler_wrapper"></div>
+      <div class="login_wrapper">
+        <form action="{% url 'map_gen:new_event_confirmation' %}" method="post" class="login_form">
+        {% csrf_token %}
+            <fieldset>
+                <legend><h2>Create a mappable incident or event</h2></legend>
+                    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <label for="username">SSO Username:</label>
+                <input type="text" id="creator_id_input" name="creator_id_input"><br><br>
+                <label for="eventname">Name of Event or Incident:</label>
+                <input type="text" id="event_name_input" name="event_name_input"><br><br>
+                <label for="eventtype">Type of Event:</label>
+                <input type="text" id="type_input" name="type_input"><br><br>
+            </fieldset>
+          <input type="submit" value="Confirm New Event">
+        </form>
+      </div>
+      <div class="filler_wrapper"></div>
+    </div>
+  </body>
+</html>

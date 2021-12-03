@@ -1,9 +1,13 @@
+/* navy blue: #21314D
+light blue: #92A2BD
+orange: #D2492A */
+
 *{
   margin: 0;
   padding: 0;
 }
 .page_wrapper{
-  background-color: #000080;
+  background-color: #21314D;
   width: 100%;
   display: flex;
   padding-top: 10.5%
@@ -14,9 +18,14 @@ h1, h2, h3, summary{
   font-family: Arial;
 }
 
+input{
+  background-color: white;
+  color: black;
+}
+
 label, a, form, p{
   font-size: 16px;
-  color: white;
+  color: #92A2BD;
   font-family: Arial;
 }
 

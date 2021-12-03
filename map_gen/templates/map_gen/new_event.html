@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'map_gen/login_styles.css' %}">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'map_gen/login_styles.css' %}">
+    <link rel="icon" href="{% static 'map_gen/favicon.ico' %}" type="favicon">
+    <meta charset="utf-8">
+    <title>SafetyNET</title>
+  </head>
+  <body>
+    <div class="page_wrapper">
+      <div class="login_wrapper">
+        <form action="{% url 'map_gen:new_event_confirmation' %}" method="post" class="login_form">
+        {% csrf_token %}
+            <fieldset>
+                <legend><h2>Create a mappable incident or event:</h2></legend>
+                    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <label for="username">SSO Username</label>
+                <input type="text" id="creator_id_input" name="creator_id_input"><br><br>
+                <label for="eventname">Name of event or incident:</label>
+                <input type="text" id="event_name_input" name="event_name_input"><br><br>
+                <label for="eventtype">Type of event:</label>
+                <input type="text" id="type_input" name="type_input"><br><br>
+            </fieldset>
+          <input type="submit" value="Confirm New Event">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
