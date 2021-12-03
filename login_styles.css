@@ -1,0 +1,69 @@
+/* navy blue: #21314D
+light blue: #92A2BD
+orange: #D2492A */
+
+*{
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+
+.logo_wrapper{
+  align: center;
+  position:fixed;
+  max-width: 100%;
+  background-color: white;
+  z-index: 1;
+  left:0;
+  top: 0;
+}
+
+.logo_wrapper img{
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.page_wrapper{
+  background-color: inherit;
+  width: 100%;
+  display: flex;
+  padding-top: 10.5%
+}
+
+.login_wrapper{
+  margin-top: 80px;
+}
+
+.login_form{
+  border-radius: 10px;
+  padding: 10px;
+  border: 20px, solid, #21314D;
+  background-color: #21314D;
+}
+
+.login_form fieldset, p, strong{
+  border: 0;
+  background-color: #21314D;
+}
+
+.login_form h2{
+  border: 0;
+  background-color: #21314D;
+  color: #D2492A;
+}
+
+.login_form input{
+  background-color: white;
+  color: black;
+}
+
+.login_form label, form, legend{
+  background-color: inherit;
+  color: #92A2BD;
+}
+
+.filler_wrapper{
+  padding: 16.5%;
+}
